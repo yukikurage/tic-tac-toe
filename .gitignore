@@ -32,3 +32,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#vscode settings
+.vscode
+
+#eslint settings
+.eslintrc.json
+
+#prettier settings
+.prettierrc.json

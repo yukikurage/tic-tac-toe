@@ -168,6 +168,7 @@ export default function Home() {
       <Head>
         <title>Tic-Tac-Toe</title>
         <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet"></link>
       </Head>
 
       <main className={styles.main}>

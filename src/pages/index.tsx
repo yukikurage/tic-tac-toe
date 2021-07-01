@@ -122,9 +122,7 @@ export default function Home() {
     if (winner === -1) {
       return (
         <div>
-          <div>
-            <b> No contest </b>
-          </div>
+          <div> No contest</div>
           <button onClick={() => restartButtonClick()}>Restart</button>
         </div>
       );

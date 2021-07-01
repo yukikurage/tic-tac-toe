@@ -12,7 +12,7 @@ interface NoPiece {
 
 interface SomePiece {
   readonly type: 'SomePiece';
-  readonly piece: Piece;
+  readonly pieceNum: number;
 }
 
 type CellState = NoPiece | SomePiece;
@@ -44,13 +44,12 @@ const playerPieces = [cross, circle];
 const playerNum = playerPieces.length;
 
 const judge = (board: Board, player: number) => {
-  const targetPiece = playerPieces[player];
   //縦方向の判定
   for (let i = 0; i < boardSize; i++) {
     if (
       board.every((hori) => {
         let cell = hori[i];
-        return cell.type === 'SomePiece' && cell.piece === targetPiece;
+        return cell.type === 'SomePiece' && cell.pieceNum === player;
       })
     ) {
       return true;
@@ -58,7 +57,7 @@ const judge = (board: Board, player: number) => {
   }
   //横方向の判定
   for (let i = 0; i < boardSize; i++) {
-    if (board[i].every((cell) => cell.type === 'SomePiece' && cell.piece === targetPiece)) {
+    if (board[i].every((cell) => cell.type === 'SomePiece' && cell.pieceNum === player)) {
       return true;
     }
   }
@@ -67,7 +66,7 @@ const judge = (board: Board, player: number) => {
     board.every((hori, i) => {
       let cell = hori[i];
       console.log(cell);
-      return cell.type === 'SomePiece' && cell.piece === targetPiece;
+      return cell.type === 'SomePiece' && cell.pieceNum === player;
     })
   ) {
     return true;
@@ -75,7 +74,7 @@ const judge = (board: Board, player: number) => {
   if (
     board.every((hori, i) => {
       let cell = hori[boardSize - 1 - i];
-      return cell.type === 'SomePiece' && cell.piece === targetPiece;
+      return cell.type === 'SomePiece' && cell.pieceNum === player;
     })
   ) {
     return true;
@@ -150,7 +149,7 @@ export default function Home() {
 
   const cellClick = (i: number, j: number) => {
     if (board[i][j].type === 'NoPiece' && gameState === 'Game Running') {
-      board[i][j] = { type: 'SomePiece', piece: playerPieces[turn] };
+      board[i][j] = { type: 'SomePiece', pieceNum: turn };
       setBoard(board.concat());
       updateTurn();
     }
@@ -180,7 +179,9 @@ export default function Home() {
                   {horizon.map((cell, j) => (
                     <td onClick={() => cellClick(i, j)} key={j}>
                       {cell.type === 'SomePiece' ? (
-                        <div className={styles.pieceImage}>{cell.piece.pieceElem}</div>
+                        <div className={styles.pieceImage}>
+                          {playerPieces[cell.pieceNum].pieceElem}
+                        </div>
                       ) : (
                         noPieceElem
                       )}
